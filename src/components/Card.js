@@ -1,13 +1,13 @@
 import React from "react"
 import "../index.css"
-import zavala from "../images/zavala.png"
+
 
 
 const Card = (props) => {
     return(
         <button className="card" onClick={() => console.log("Clicked")}>
-            <img src={zavala} alt="Commander Zavala"></img>
-            <h3>Commander Zavala</h3>
+            <img src={props.image} alt={props.name}></img>
+            <h3>{props.name}</h3>
         </button>
     )
 }
