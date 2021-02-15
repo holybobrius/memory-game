@@ -17,61 +17,73 @@ const CardsContainer = () => {
     
     const characters = [
         {
+            id: 0,
             name: "Commander Zavala",
             image: zavala
         },
 
         {
+            id: 1,
             name: "Cayde-6",
             image: cayde
         },
         
         {
+            id: 2,
             name: "Ikora Rey",
             image: ikora
         },
         
         {
+            id: 3,
             name: "Suraya Hawthorne",
             image: hawthorne
         },
         
         {
+            id: 4,
             name: "The Crow",
             image: crow
         },
         
         {
+            id: 5,
             name: "Xol, Will of the Thousands",
             image: xol
         },
         
         {
+            id: 6,
             name: "The Drifter",
             image: drifter
         },
         
         {
+            id: 7,
             name: "Exo-Stranger",
             image: stranger
         },
         
         {
+            id: 8,
             name: "Dominus Ghaul",
             image: ghaul
         },
 
         {
+            id: 9,
             name: "Emperor Calus",
             image: calus
         },
 
         {
+            id: 10,
             name: "Variks, the Loyal",
             image: variks
         },
 
         {
+            id: 11,
             name: "Oryx, the Taken King",
             image: oryx
         },
@@ -99,13 +111,21 @@ const CardsContainer = () => {
 
     // logic for handling clicks
 
-    const randomizedCharacters = shuffle(characters).map(character => 
-        <Card name={character.name} image={character.image}/>
-    )
+    const handleClick = () => {
+        console.log("Clicked");
+        setCards(shuffle(characters).map(character => 
+            <Card name={character.name} image={character.image} handleClick={handleClick} key={character.id}/>));
+    }
+
+    const [cards, setCards] = useState(shuffle(characters).map(character => 
+        <Card name={character.name} image={character.image} handleClick={handleClick} key={character.id}/>
+    ))
+
+    
 
     return (
         <main>
-            {randomizedCharacters}
+            {cards}
         </main>
     )
 }
