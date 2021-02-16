@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Card from "./Card"
 import zavala from "../images/zavala.png"
 import cayde from "../images/cayde.png"
@@ -13,84 +13,100 @@ import calus from "../images/calus.png"
 import variks from "../images/varyks.jpg"
 import oryx from "../images/oryx.png"
 
-const CardsContainer = () => {
+const CardsContainer = (props) => {
     
     const characters = [
         {
             id: 0,
             name: "Commander Zavala",
-            image: zavala
+            image: zavala,
+            clicked: false
         },
 
         {
             id: 1,
             name: "Cayde-6",
-            image: cayde
+            image: cayde,
+            clicked: false
         },
         
         {
             id: 2,
             name: "Ikora Rey",
-            image: ikora
+            image: ikora,
+            clicked: false
         },
         
         {
             id: 3,
             name: "Suraya Hawthorne",
-            image: hawthorne
+            image: hawthorne,
+            clicked: false
         },
         
         {
             id: 4,
             name: "The Crow",
-            image: crow
+            image: crow,
+            clicked: false
         },
         
         {
             id: 5,
             name: "Xol, Will of the Thousands",
-            image: xol
+            image: xol,
+            clicked: false
         },
         
         {
             id: 6,
             name: "The Drifter",
-            image: drifter
+            image: drifter,
+            clicked: false
         },
         
         {
             id: 7,
             name: "Exo-Stranger",
-            image: stranger
+            image: stranger,
+            clicked: false
         },
         
         {
             id: 8,
             name: "Dominus Ghaul",
-            image: ghaul
+            image: ghaul,
+            clicked: false
         },
 
         {
             id: 9,
             name: "Emperor Calus",
-            image: calus
+            image: calus,
+            clicked: false
         },
 
         {
             id: 10,
             name: "Variks, the Loyal",
-            image: variks
+            image: variks,
+            clicked: false
         },
 
         {
             id: 11,
             name: "Oryx, the Taken King",
-            image: oryx
+            image: oryx,
+            clicked: false
         },
     ]
 
+    const [clickedCards, setClickedCards] = useState([]);
+    const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(0);
+
     function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
+        let currentIndex = array.length, temporaryValue, randomIndex;
       
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
@@ -107,25 +123,45 @@ const CardsContainer = () => {
       
         return array;
       }
-    // on load/update randomize cards
 
-    // logic for handling clicks
+    const [cards, setCards] = useState();
 
-    const handleClick = () => {
-        console.log("Clicked");
-        setCards(shuffle(characters).map(character => 
-            <Card name={character.name} image={character.image} handleClick={handleClick} key={character.id}/>));
+    const reset = () => {
+        setClickedCards([]);
+        setScore(0);
     }
 
-    const [cards, setCards] = useState(shuffle(characters).map(character => 
-        <Card name={character.name} image={character.image} handleClick={handleClick} key={character.id}/>
-    ))
+    useEffect(() => {
+        const handleClick = (characterName) => {
+            
+            if(!clickedCards.includes(characterName)) {
+                clickedCards.push(characterName);
+                setScore(score + 1);
+                if(score >= highScore) {
+                    setHighScore(score + 1);
+                    
+                }
+            } else {
+                reset();
+            } 
+        }  
+        setCards(shuffle(characters).map(character => 
+            <Card name={character.name} image={character.image} handleClick={handleClick} key={character.id} clicked={character.clicked}/>));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [score, highScore, clickedCards]
+    )
+
+    
 
     
 
     return (
         <main>
-            {cards}
+            <div className="scores">
+                <p>Current Score: {score}</p>
+                <p>Best Score: {highScore}</p>
+            </div>
+            <div className="cards-container">{cards}</div>
         </main>
     )
 }

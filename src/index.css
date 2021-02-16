@@ -13,7 +13,7 @@ header {
   text-align: center;
 }
 
-main {
+.cards-container {
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 270px));
@@ -42,4 +42,8 @@ img {
   height: 250px;
   width: 250px;
   padding: 0;
+}
+
+.scores {
+  text-align: center;
 }

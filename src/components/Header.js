@@ -1,11 +1,9 @@
 import React from "react"
 
-const Header = () => {
+const Header = (props) => {
     return(
         <header>
             <h1>Memory Game</h1>
-            <p>Current Score: 0</p>
-            <p>Best Score: 0</p>
         </header>
     )
 }
